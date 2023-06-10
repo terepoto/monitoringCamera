@@ -5,3 +5,8 @@ numpy
 Pillow
 apscheduler
 boto3
+Gunicorn
+django==4.2.1
+Gunicorn
+wheel
+uwsgi
