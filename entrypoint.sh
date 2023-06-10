@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python manage.py runserver 0.0.0.0:8000
+uwsgi --socket :8001 --module monitoringCamera.wsgi --py-autoreload 1 --logto /var/www/html/log.log

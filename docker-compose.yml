@@ -9,6 +9,7 @@ services:
         volumes:
             - ./build/nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./build/nginx/conf.d:/etc/nginx/conf.d
+            - ./build/nginx/uwsgi_params:/etc/nginx/uwsgi_params
             - .:/var/www/html/
         depends_on:
             - python
@@ -31,8 +32,10 @@ services:
         build: ./build/python/
         tty: true
         working_dir: /var/www/html/
-        command: sh -c "/var/www/html/entrypoint.sh"
-        ports:
-            - "8000:8000"
+        command: uwsgi --socket :8001 --module monitoringCamera.wsgi --py-autoreload 1 --logto /var/www/html/log.log
+#        ports:
+#            - "8000:8000"
+        expose:
+            - "8001"
         volumes:
             - .:/var/www/html/
